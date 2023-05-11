@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+
+<body>
+
+    <h1>Интернет магазин</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button>Поиск</button>
+    </form>
+    <br>
+    <hr>
+
+    {% if user.is_authenticated %}
+
+    <a href="accounts/logout">Выйти</a><br>
+    <a href="basket">Корзина</a><br>
+
+
+    {% else %}
+
+    <a href="accounts/login">Войти</a><br>
+    {% endif %} <br>
+
+    {% for category in all_categories %}
+    <a href="/category/{{category.id}}">{{category.category_name}}</a><br>
+    {% endfor %}
+
+    {% for i in all_products %}
+        <a href="/item/{{i.id}}">{{i.product_name}}</a><br>
+    {% endfor %}
+</body>
+
+</html>
